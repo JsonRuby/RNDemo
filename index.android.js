@@ -3,18 +3,14 @@
  * https://github.com/facebook/react-native
  * @flow
  */
-
-import React, { Component } from 'react';
 import TabNavigator from 'react-native-tab-navigator';
+import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
   Text,
-  View,
-  Image
+  View
 } from 'react-native';
-
-
 export default class imooc_gp extends Component {
   constructor(props) {
     super(props);
@@ -25,27 +21,24 @@ export default class imooc_gp extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text>Profile</Text>
         <TabNavigator>
           <TabNavigator.Item
             selected={this.state.selectedTab === 'home'}
             title="Home"
-            renderIcon={() => <Image source={require('./res/images/ic_popular.png')} />}
-            renderSelectedIcon={() => <Image source={require('./res/images/ic_popular.png')} />}
+            renderIcon={() => <Text>123</Text>}
+            renderSelectedIcon={() => <Text>123</Text>}
             badgeText="1"
             onPress={() => this.setState({ selectedTab: 'home' })}>
-            <View>
-              <Text>Home Page</Text>
-            </View>
+           <Text>Home</Text>
           </TabNavigator.Item>
           <TabNavigator.Item
             selected={this.state.selectedTab === 'profile'}
             title="Profile"
-            renderIcon={() => <Image source={require('./res/images/ic_trending.png')} />}
-            renderSelectedIcon={() => <Image source={require('./res/images/ic_trending.png')} />}
+            renderIcon={() => <Text>123</Text>}
+            renderSelectedIcon={() => <Text>123</Text>}
             onPress={() => this.setState({ selectedTab: 'profile' })}>
-            <View>
-              <Text>Profile Page</Text>
-            </View>
+            <Text>Profile</Text>
           </TabNavigator.Item>
         </TabNavigator>
       </View>
@@ -59,6 +52,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+  },
+  header1: {
+    backgroundColor: 'red'
+  },
+  header2: {
+    backgroundColor: 'green'
   }
 });
 
