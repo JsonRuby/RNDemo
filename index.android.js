@@ -5,27 +5,49 @@
  */
 
 import React, { Component } from 'react';
+import TabNavigator from 'react-native-tab-navigator';
 import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Image
 } from 'react-native';
 
+
 export default class imooc_gp extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedTab: 'home'
+    }
+  }
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
+        <TabNavigator>
+          <TabNavigator.Item
+            selected={this.state.selectedTab === 'home'}
+            title="Home"
+            renderIcon={() => <Image source={require('./res/images/ic_popular.png')} />}
+            renderSelectedIcon={() => <Image source={require('./res/images/ic_popular.png')} />}
+            badgeText="1"
+            onPress={() => this.setState({ selectedTab: 'home' })}>
+            <View>
+              <Text>Home Page</Text>
+            </View>
+          </TabNavigator.Item>
+          <TabNavigator.Item
+            selected={this.state.selectedTab === 'profile'}
+            title="Profile"
+            renderIcon={() => <Image source={require('./res/images/ic_trending.png')} />}
+            renderSelectedIcon={() => <Image source={require('./res/images/ic_trending.png')} />}
+            onPress={() => this.setState({ selectedTab: 'profile' })}>
+            <View>
+              <Text>Profile Page</Text>
+            </View>
+          </TabNavigator.Item>
+        </TabNavigator>
       </View>
     );
   }
@@ -37,17 +59,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  }
 });
+
 
 AppRegistry.registerComponent('imooc_gp', () => imooc_gp);
