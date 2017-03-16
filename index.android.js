@@ -10,8 +10,14 @@ import {
   StyleSheet,
   Text,
   View,
+  Navigator,
   Image
 } from 'react-native';
+
+
+import Boy from './Boy';
+
+
 export default class imooc_gp extends Component {
   constructor(props) {
     super(props);
@@ -22,54 +28,15 @@ export default class imooc_gp extends Component {
   }
   render() {
     return (
-      <TabNavigator>
-        <TabNavigator.Item
-          selected={this.state.selectedTab === 'tb_popular'}
-          selectedTitleStyle={{color:'red'}}
-          title="最熱"
-          renderIcon={() => <Image style={styles.image} source={require('./res/images/ic_popular.png')} />}
-          renderSelectedIcon={() => <Image style={[styles.image,{tintColor:'red'}]} source={require('./res/images/ic_popular.png')} />}
-          badgeText="1"
-          onPress={() => this.setState({ selectedTab: 'tb_popular' })}>
-          <View>
-            <Text>Home</Text>
-          </View>
-        </TabNavigator.Item>
-        <TabNavigator.Item
-          selected={this.state.selectedTab === 'tb_trending'}
-          selectedTitleStyle={{color:'red'}}
-          title="趨勢"
-          renderIcon={() => <Image style={styles.image} source={require('./res/images/ic_popular.png')} />}
-          renderSelectedIcon={() => <Image style={[styles.image,{tintColor:'red'}]} source={require('./res/images/ic_popular.png')} />}
-          badgeText="1"
-          onPress={() => this.setState({ selectedTab: 'tb_trending' })}>
-          <View>
-            <Text>Home</Text>
-          </View>
-        </TabNavigator.Item>
-        <TabNavigator.Item
-          selected={this.state.selectedTab === 'tb_favorite'}
-          selectedTitleStyle={{color:'yellow'}}
-          title="收藏"
-          renderIcon={() => <Image style={styles.image} source={require('./res/images/ic_trending.png')} />}
-          renderSelectedIcon={() => <Image style={[styles.image,{tintColor:'red'}]}  source={require('./res/images/ic_trending.png')} />}
-          onPress={() => this.setState({ selectedTab: 'tb_favorite' })}>
-          <View>
-            <Text>Profile</Text>
-          </View>
-        </TabNavigator.Item>
-        <TabNavigator.Item
-          selected={this.state.selectedTab === 'tb_my'}
-          selectedTitleStyle={{color:'yellow'}}
-          title="我的"
-          renderIcon={() => <Image style={styles.image} source={require('./res/images/ic_trending.png')} />}
-          renderSelectedIcon={() => <Image style={[styles.image,{tintColor:'red'}]}  source={require('./res/images/ic_trending.png')} />}
-          onPress={() => this.setState({ selectedTab: 'tb_my' })}>
-          <View>
-            <Text>Profile</Text>
-          </View>
-        </TabNavigator.Item>
-      </TabNavigator>
+      <Navigator
+        initialRoute={{ component: Boy }}
+
+        renderScene={(route, navigator) => {
+          let Component = route.component;
+          return <Component navigator={navigator} {...route.params} />;
+        }}
+      ></Navigator>
+
     );
   }
 }
