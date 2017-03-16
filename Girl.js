@@ -5,6 +5,8 @@ import {
     Text,
     StyleSheet
 } from 'react-native';
+import NavigationBar from './NavigationBar';
+
 
 export default class Girl extends Component {
 
@@ -20,6 +22,10 @@ export default class Girl extends Component {
 
         return (
             <View style={styles.container}>
+                <NavigationBar title={'girl'} statusBar={{
+                    backgroundColor: 'pink'
+                }} />
+
                 <Text style={styles.text}>我是guaer</Text>
                 <Text style={styles.text}>收到luoer的{this.props.word}</Text>
                 <Text style={styles.text}
@@ -41,8 +47,7 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        backgroundColor: 'blue',
-        justifyContent: 'center'
+        backgroundColor: 'blue'
     },
     text: {
         backgroundColor: 'green',
