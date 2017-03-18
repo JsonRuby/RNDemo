@@ -39,9 +39,8 @@ export default class Girl extends Component {
         return (
             <View style={styles.container}>
                 <NavigationBar
-                    title={'girl'}
-
-
+                    title={'guaer'}
+                    
                     leftButton={
                         this.renderButton(require('./res/images/ic_arrow_back_white_36pt.png'))
                     }

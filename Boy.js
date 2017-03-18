@@ -27,7 +27,7 @@ export default class Boy extends Component {
 
         return (
             <View style={styles.container}>
-                <NavigationBar title={'boy'}
+                <NavigationBar title={'luoer'}
                     style={{ backgroundColor: 'green' }}
 
                     
@@ -46,7 +46,7 @@ export default class Boy extends Component {
                         }
                     })
 
-                }}>送瓜瓜一只花花</Text>
+                }}>送瓜瓜一只花花:)</Text>
 
                 <Text style={styles.text}>收到guaer送的{this.state.word}</Text>
             </View>
