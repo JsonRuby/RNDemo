@@ -5,7 +5,9 @@ import Girl from './Girl';
 import {
     View,
     Text,
-    StyleSheet
+    Image,
+    StyleSheet,
+    TouchableOpacity
 } from 'react-native';
 
 
@@ -25,9 +27,11 @@ export default class Boy extends Component {
 
         return (
             <View style={styles.container}>
-                <NavigationBar title={'boy'} statusBar={{
-                    backgroundColor: 'green'
-                }} />
+                <NavigationBar title={'boy'}
+                    style={{ backgroundColor: 'green' }}
+
+                    
+                />
                 <Text style={styles.text}>我是luoer</Text>
                 <Text style={styles.text} onPress={() => {
                     this.props.navigator.push({
