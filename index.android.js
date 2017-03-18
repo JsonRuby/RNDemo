@@ -14,9 +14,7 @@ import {
   Image
 } from 'react-native';
 
-
-import Boy from './Boy';
-
+import setup from './js/pages/setup';
 
 export default class imooc_gp extends Component {
   constructor(props) {
@@ -55,4 +53,4 @@ const styles = StyleSheet.create({
 });
 
 
-AppRegistry.registerComponent('imooc_gp', () => imooc_gp);
+AppRegistry.registerComponent('imooc_gp', () => setup);
