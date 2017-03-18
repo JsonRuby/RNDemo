@@ -8,7 +8,7 @@ import {
     Navigator
 } from 'react-native';
 
-import WelcomePage from 'WelcomePage';
+import WelcomePage from './WelcomePage';
 
 function setup() {
     //进行初始化配置

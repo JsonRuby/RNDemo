@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 import { View, Text, StyleSheet, Navigator } from 'react-native';
 
-import NavigationBar from '../common/NavigationBar';
+
+import HomePage from './HomePage';
 
 export default class WelcomePage extends Component {
 
@@ -10,7 +11,7 @@ export default class WelcomePage extends Component {
     componentDidMount() {
         this.timer = setTimeout(() => {
             this.props.navigator.resetTo({
-                component: WelcomePage
+                component: HomePage
             })
         }, 2000);
     }
@@ -23,7 +24,7 @@ export default class WelcomePage extends Component {
 
     render() {
         return <View>
-            <Text>Welcome</Text>
+            <Text>Welcome1</Text>
 
         </View>
     }
