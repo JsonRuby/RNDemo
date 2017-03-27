@@ -1,82 +1,101 @@
 
-import TabNavigator from 'react-native-tab-navigator';
 import React, { Component } from 'react';
 import {
     StyleSheet,
     Text,
     View,
-    TextInput
+    TextInput,
+    ListView
 } from 'react-native';
 import DataRepository from '../expand/dao/DataRepository';
 import NavigationBar from '../common/NavigationBar';
 
+import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view';
 
 const URL = 'https://api.github.com/search/repositories?q=';
 const QUERY_STR = '&sort=stars';
+
 export default class PopularPage extends Component {
-    constructor(props) {
-        super(props);
-        this.dataRepository = new DataRepository()
-        this.state = {
-            result: ''
-        }
-    }
 
-
-    onLoad() {
-        let url = this.genUrl(this.text);
-        this.dataRepository.fetchNetRepository(url)
-            .then(result => {
-                this.setState({
-                    result: JSON.stringify(result)
-                })
-            })
-            .catch(error => {
-                this.setState({
-                    result: JSON.stringify(error)
-                });
-            })
-
-
-    }
-
-    genUrl(key) {
-        return URL + key + QUERY_STR;
-    }
 
     render() {
         return (
-            <View>
+            <View style={styles.container} >
                 <NavigationBar
                     title='最热'
-                    style={{ backgroundColor: '#6495ED' }}
-
                 />
 
-                <Text onPress={() => {
-                    this.onLoad()
-                }} >获取资料</Text>
-                <TextInput style={{ height: 50 }}
-                    onChangeText={text => this.text = text}
-                ></TextInput>
+                <ScrollableTabView
+                    renderTabBar={() => <ScrollableTabBar />}
+                >
+                    <PopularTab tabLabel="java">Java</PopularTab>
+                    <PopularTab tabLabel="ios">Ios</PopularTab>
+                    <PopularTab tabLabel="android">Android</PopularTab>
+                    <PopularTab tabLabel="javascript">Javascript</PopularTab>
 
-                <Text style={{ height: 500 }} >{this.state.result}</Text>
+                </ScrollableTabView>
             </View>
 
         );
     }
 }
 
+class PopularTab extends Component {
+
+    constructor(props) {
+        super(props);
+        this.dataRepository = new DataRepository()
+        this.state = {
+            result: '',
+            dataSource: new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 }).cloneWithRows([])
+        }
+    }
+
+    componentDidMount() {
+        this.loadData();
+    }
+
+    genUrl() {
+        return URL + this.props.tabLabel + QUERY_STR;
+    }
+
+    loadData() {
+        let url = this.genUrl();
+        this.dataRepository.fetchNetRepository(url)
+            .then(result => {
+                console.log("success?:" + result.items.length);
+                this.setState({
+                    dataSource: this.state.dataSource.cloneWithRows(result.items)
+                });
+            })
+            .catch(error => {
+                this.setState({
+                    dataSource: this.state.dataSource.cloneWithRows([])
+                });
+                console.log("err?:" + error);
+            })
+    }
+
+    renderRow(data) {
+        return <View>
+            <Text>{data.full_name}</Text>
+        </View>;
+    }
+
+    render() {
+        return <View>
+            <ListView
+                dataSource={this.state.dataSource}
+                renderRow={(data) => { this.renderRow(data) }}
+                enableEmptySections={true}
+            />
+        </View>;
+    }
+}
+
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    image: {
-        height: 22,
-        width: 22
+        flex: 1
     }
 });
 
