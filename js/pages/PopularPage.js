@@ -32,6 +32,10 @@ export default class PopularPage extends Component {
                     <PopularTab tabLabel="ios">Ios</PopularTab>
                     <PopularTab tabLabel="android">Android</PopularTab>
                     <PopularTab tabLabel="javascript">Javascript</PopularTab>
+                    <PopularTab tabLabel="javascript">Javascript</PopularTab>
+                    <PopularTab tabLabel="javascript">Javascript</PopularTab>
+                    <PopularTab tabLabel="javascript">Javascript</PopularTab>
+                    <PopularTab tabLabel="javascript">Javascript</PopularTab>
 
                 </ScrollableTabView>
             </View>
@@ -47,7 +51,7 @@ class PopularTab extends Component {
         this.dataRepository = new DataRepository()
         this.state = {
             result: '',
-            dataSource: new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 }).cloneWithRows([])
+            dataSource: new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
         }
     }
 
@@ -63,32 +67,27 @@ class PopularTab extends Component {
         let url = this.genUrl();
         this.dataRepository.fetchNetRepository(url)
             .then(result => {
-                console.log("success?:" + result.items.length);
+                console.log(result.items);
                 this.setState({
+                    // dataSource: this.state.dataSource.cloneWithRows([{full_name:"test"}])
                     dataSource: this.state.dataSource.cloneWithRows(result.items)
                 });
             })
             .catch(error => {
-                this.setState({
-                    dataSource: this.state.dataSource.cloneWithRows([])
-                });
                 console.log("err?:" + error);
             })
     }
 
     renderRow(data) {
-        return <View>
-            <Text>{data.full_name}</Text>
-        </View>;
+        return <Text>{data.full_name}</Text>;
     }
 
     render() {
         return <View>
             <ListView
                 dataSource={this.state.dataSource}
-                renderRow={(data) => { this.renderRow(data) }}
-                enableEmptySections={true}
-            />
+                renderRow={(data) => { return this.renderRow(data) } }
+            ></ListView>
         </View>;
     }
 }
